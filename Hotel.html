@@ -1,0 +1,121 @@
+<html>
+
+<head>
+
+	<script>
+		var senha = 2678;
+		var nome;
+		var nomeHotel = "hotel Stars Hollow";
+		var quartos = []
+		function inicio(){
+			alert('Bem-vindo ao Hotel Stars Hollow!');
+			nome = prompt('Por favor, informe seu nome:');
+			var senhaInformada = parseInt(prompt('Por favor, informe a senha de acesso:'));
+			while (senhaInformada !== senha) {
+				alert('Senha incorreta! Tente novamente.');
+				senhaInformada = parseInt(prompt('Por favor, informe a senha de acesso:'));
+			}
+			alert("Bem-vindo ao "+nomeHotel+", "+nome+"! É um imenso prazer ter você por aqui!");
+			menu();
+		}
+		function menu() {
+
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair'));
+
+			switch (escolha) {
+				case 1:
+					reserva_quartos();
+					break;
+				case 2:
+					cadastro_hospedes();
+					break;
+				case 3:
+					abastecer_carros();
+					break;
+				case 4:
+					sair();
+					break;
+				default:
+					erro();
+			}
+		}		
+
+		function reserva_quartos() {
+			var diaria = parseInt(prompt("Qual o valor padrão da diária?"));
+			while(diaria <= 0) {
+				alert('Valor inválido,'+nome+'.');
+				diaria = parseInt(prompt("Qual o valor padrão da diária?"));
+			}
+			var dias = parseInt(prompt("Quantos dias o hóspede ficará?"));
+			while(dias <= 0 && dias > 30) {
+				alert('Valor inválido,'+nome+'.');
+				dias = parseInt(prompt("Quantos dias o hóspede ficará?"));
+			}
+			alert("O valor "+dias+" dias de hospedagem é de R$" + (diaria * dias) + ",00.");
+			var nomeHospede = prompt("Qual o nome do hóspede?");
+			while(nomeHospede == "" || nomeHospede == null) {
+				alert('Valor inválido,'+nome+'.');
+				nomeHospede = prompt("Qual o nome do hóspede?");
+			}
+			quartoReserva = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"));
+			while(quartoReserva < 1 || quartoReserva > 20) {
+				alert('Valor inválido,'+nome+'.');
+				quartoReserva = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"));
+			}
+			while(quartos.includes(quartoReserva)) {
+				alert('Quarto já reservado!');
+				quartoReserva = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"));
+			}
+			quartos.push(quartoReserva);
+			alert('Quarto livre.');
+			var confirma = confirm(nome+", você confirma a hospedagem para "+nomeHospede+" por "+dias+" dias para o quarto "+quartoReserva+" por R$" + (diaria * dias) + ",00? S/N");
+			if (confirma) {
+				alert(nome+', reserva efetuada para '+nomeHospede+".");
+			} else {
+				alert('Reserva cancelada!');
+			}
+			// Lista de quartos e suas ocupações "1- livre; 2- livre; 3- livre; 4- livre; 5-ocupado; 6- livre; 7- ocupado; 8- livre; 9- livre; 10-livre; 11- livre; 12- livre; 13- livre; 14- livre; 15-livre; 16- livre; 17- livre; 18- livre; 19- livre; 20-ocupado"
+			alert("Lista de quartos e suas ocupações: \n" + quartos.join(" - livre"));
+			
+			
+			alert("Lista de quartos e suas ocupações: " + quartos.includes(quartoReserva).join(" - ocupado") + !quartos.includes(quartoReserva).join(" - livre"))
+
+			menu();
+		}
+
+		function cadastro_hospedes() {
+			alert('HOTEL {NOME DO HOTEL} - CADASTRO DE HÓSPEDES');
+			menu();
+		}
+
+		function abastecer_carros() {
+			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
+			menu();
+		}
+
+		function erro() {
+			alert('Por favor, informe um número entre 1 e 4');
+			menu();
+		}
+
+		function sair() {
+			var confirma = confirm('Você deseja sair?');
+			if (confirma) {
+				alert('Muito obrigado e até logo, ' + nome + '!');
+				window.close();
+			} else {
+				menu();
+			}
+		}
+
+		
+		
+		inicio();
+	</script>
+</head>
+
+<body>
+
+</body>
+
+</html>
