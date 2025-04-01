@@ -85,7 +85,49 @@
 		}
 
 		function cadastro_hospedes() {
-			alert('HOTEL {NOME DO HOTEL} - CADASTRO DE HÓSPEDES');
+			gratuidade = 0;
+			meia = 0;
+			meiaPaga = 0;
+			hospedesCadastrados = 0;
+			var diaria = parseInt(prompt("Qual o valor padrão da diária?"));
+			while(diaria <= 0) {
+				alert('Valor inválido,'+nome+'.');
+				diaria = parseInt(prompt("Qual o valor padrão da diária?"));
+			}
+			while(true){
+
+
+				var nomeHospede = prompt("Qual o nome do hóspede?");
+				if(nomeHospede == "PARE"){
+					diariaTotal = diaria * hospedesCadastrados;
+					gratuidadePaga = gratuidade * diaria;
+					alert(nome+", o valor total das hospedagens é: R$" + (diariaTotal-gratuidadePaga-meiaPaga) + ",00; \n"+gratuidade+" gratuidade(s); "+meia+" meia(s).");
+					break;
+				}
+				while(nomeHospede == "" || nomeHospede == null) {
+					alert('Valor inválido,'+nome+'.');
+					nomeHospede = prompt("Qual o nome do hóspede?");
+				}
+				var idadeHospede = parseInt(prompt("Qual a idade do hóspede?"));
+				while(idadeHospede <= 0) {
+					alert('Valor inválido,'+nome+'.');
+					idadeHospede = parseInt(prompt("Qual a idade do hóspede?"));
+				}
+				if (idadeHospede <= 6){
+					alert(nomeHospede+" cadastrado(a) com sucesso! "+nomeHospede+" possui gratuidade.")
+					gratuidade += 1;
+				} else if (idadeHospede >= 60){
+					alert(nomeHospede+" cadastrado(a) com sucesso! "+nomeHospede+" paga meia.");
+					meiaPaga = diaria / 2;
+					meia += 1;
+				} else {
+					alert(nomeHospede+" cadastrado(a) com sucesso!");
+				}
+				hospedesCadastrados += 1;
+				
+			}
+
+
 			menu();
 		}
 
