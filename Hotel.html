@@ -7,6 +7,9 @@
 		var nome;
 		var nomeHotel = "hotel Stars Hollow";
 		var quartos = []
+		for (var i = 1; i <= 20; i++) {
+			quartos.push(i + " - livre.");
+		}
 		function inicio(){
 			alert('Bem-vindo ao Hotel Stars Hollow!');
 			nome = prompt('Por favor, informe seu nome:');
@@ -62,23 +65,21 @@
 				alert('Valor inválido,'+nome+'.');
 				quartoReserva = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"));
 			}
-			while(quartos.includes(quartoReserva)) {
-				alert('Quarto já reservado!');
+			while (quartos[quartoReserva - 1].includes("ocupado")) {
+				alert('Quarto está ocupado. Escolha outro.');
 				quartoReserva = parseInt(prompt("Qual o quarto para reserva? (1 - 20)?"));
 			}
-			quartos.push(quartoReserva);
 			alert('Quarto livre.');
+			
 			var confirma = confirm(nome+", você confirma a hospedagem para "+nomeHospede+" por "+dias+" dias para o quarto "+quartoReserva+" por R$" + (diaria * dias) + ",00? S/N");
 			if (confirma) {
 				alert(nome+', reserva efetuada para '+nomeHospede+".");
+				quartos[quartoReserva - 1] = quartoReserva + " - ocupado.";
 			} else {
 				alert('Reserva cancelada!');
 			}
-			// Lista de quartos e suas ocupações "1- livre; 2- livre; 3- livre; 4- livre; 5-ocupado; 6- livre; 7- ocupado; 8- livre; 9- livre; 10-livre; 11- livre; 12- livre; 13- livre; 14- livre; 15-livre; 16- livre; 17- livre; 18- livre; 19- livre; 20-ocupado"
-			alert("Lista de quartos e suas ocupações: \n" + quartos.join(" - livre"));
-			
-			
-			alert("Lista de quartos e suas ocupações: " + quartos.includes(quartoReserva).join(" - ocupado") + !quartos.includes(quartoReserva).join(" - livre"))
+
+			alert("Lista de quartos e suas ocupações:\n" + quartos.join("; "));
 
 			menu();
 		}
