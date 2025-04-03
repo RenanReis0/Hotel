@@ -23,7 +23,7 @@
 		}
 		function menu() {
 
-			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Abastecimento de Carros 4.) Sair'));
+			var escolha = parseInt(prompt('Selecione uma opção 1.) Reserva de Quartos 2.) Cadastro de Hóspedes 3.) Eventos 4.) Sair'));
 
 			switch (escolha) {
 				case 1:
@@ -33,10 +33,13 @@
 					cadastro_hospedes();
 					break;
 				case 3:
-					abastecer_carros();
+					hotel_eventos();
 					break;
 				case 4:
 					sair();
+					break;
+				case 5:
+					mais_opcoes();
 					break;
 				default:
 					erro();
@@ -83,6 +86,54 @@
 
 			menu();
 		}
+		function hotel_eventos() {
+			auditorio_laranja = 150;
+			auditorio_laranja_maisvagas = 70;
+			auditorio_colorado = 350;
+
+			let numero_convidados = parseInt(prompt("Quantos convidados?"));
+			while (numero_convidados <= 0) {
+				alert('Número de convidados inválido');
+				numero_convidados = parseInt(prompt("Quantos convidados?"));
+			}
+			while(numero_convidados > 350) {
+				alert('Quantidade de convidados superior à capacidade máxima');
+				numero_convidados = parseInt(prompt("Quantos convidados?"));
+			}
+			
+			if (numero_convidados <= auditorio_laranja){
+				alert("O evento será realizado no auditório Laranja.");
+			} else if (numero_convidados > auditorio_laranja && numero_convidados <= auditorio_laranja_maisvagas+auditorio_laranja){
+				let incluir_cadeiras = numero_convidados - auditorio_laranja;
+				alert("Use o auditório Laranja (inclua mais "+ incluir_cadeiras+" cadeiras)");
+				alert("Agora vamos ver a agenda do evento.")
+			} else if (numero_convidados > auditorio_laranja_maisvagas+auditorio_laranja && numero_convidados <= auditorio_colorado){
+				alert("O evento será realizado no auditório Colorado.");
+				alert("Agora vamos ver a agenda do evento.")
+			} else if (numero_convidados > auditorio_colorado){
+				alert("Quantidade de convidados superior à capacidade máxima");
+			}
+
+			
+			let dia_evento = prompt("Qual o dia da semana do evento?");
+			while (dia_evento == "" || dia_evento == null) {
+				alert('Valor inválido,'+nome+'.');
+				dia_evento = prompt("Qual o dia da semana do evento?");
+			}
+			let horario_evento = parseInt(prompt("Qual o horário do evento?"));
+			while (horario_evento == "" || horario_evento == null) {
+				alert('Valor inválido,'+nome+'.');
+				horario_evento = prompt("Qual o horário do evento?");
+			}
+			while(true){
+				if (dia_evento == "Sábado" || "Sabado" || "sábado" || "sabado" || "Domingo" || "domingo"){
+
+				}
+				
+			}
+			menu();
+		}
+
 
 		function cadastro_hospedes() {
 			gratuidade = 0;
@@ -94,14 +145,17 @@
 				alert('Valor inválido,'+nome+'.');
 				diaria = parseInt(prompt("Qual o valor padrão da diária?"));
 			}
-			while(true){
-
-
+			if (lista_hospedes.length >= 15){
+				alert("Máximo de cadastros atingido")
+			}
+			while(lista_hospedes.length <=15) {
 				var nomeHospede = prompt("Qual o nome do hóspede?");
+				lista_hospedes.push(nomeHospede);
 				if(nomeHospede == "PARE"){
 					diariaTotal = diaria * hospedesCadastrados;
 					gratuidadePaga = gratuidade * diaria;
 					alert(nome+", o valor total das hospedagens é: R$" + (diariaTotal-gratuidadePaga-meiaPaga) + ",00; \n"+gratuidade+" gratuidade(s); "+meia+" meia(s).");
+					lista_hospedes.pop("PARE");
 					break;
 				}
 				while(nomeHospede == "" || nomeHospede == null) {
@@ -126,14 +180,58 @@
 				hospedesCadastrados += 1;
 				
 			}
-
-
-			menu();
+			mais_opcoes();
 		}
-
+		let lista_hospedes = [];
 		function abastecer_carros() {
 			alert('HOTEL {NOME DO HOTEL} - ABASTECER');
 			menu();
+		}
+		function mais_opcoes() {
+			let escolha = parseInt(prompt('Selecione uma opção 1- cadastrar; 2- pesquisar; 3-listar; 4- sair.'));
+			while (escolha < 1 || escolha > 4) {
+				alert('Valor inválido,'+nome+'.');
+				escolha = parseInt(prompt('Selecione uma opção 1- cadastrar; 2- pesquisar; 3-listar; 4- sair.'));
+			}
+			switch(escolha){
+				case 1:
+					cadastro_hospedes();
+					break;
+				case 2:
+					pesquisar_hospedes();
+					break;
+				case 3:
+					listar_hospedes();
+					break;
+				case 4:
+					menu();
+					break;
+				default:
+					erro();
+			}
+		}
+
+		function pesquisar_hospedes() {
+			var nomeHospede = prompt("Qual o nome do hóspede?");
+			while(nomeHospede == "" || nomeHospede == null) {
+				alert('Valor inválido,'+nome+'.');
+				nomeHospede = prompt("Qual o nome do hóspede?");
+			}
+			if (lista_hospedes.includes(nomeHospede)) {
+				alert("Hóspede "+nomeHospede+" foi encontrado.");
+			} else {
+				alert("Hóspede "+nomeHospede+" não foi encontrado.");
+			}
+			mais_opcoes();
+		}
+
+		function listar_hospedes() {	
+			if (lista_hospedes.length == 0) {
+				alert("Nenhum hóspede cadastrado.");
+			} else {
+				alert("Lista de hóspedes cadastrados:\n" + lista_hospedes.join("; "));
+			}
+			mais_opcoes();
 		}
 
 		function erro() {
