@@ -114,22 +114,45 @@
 				alert("Quantidade de convidados superior à capacidade máxima");
 			}
 
-			
-			let dia_evento = prompt("Qual o dia da semana do evento?");
-			while (dia_evento == "" || dia_evento == null) {
-				alert('Valor inválido,'+nome+'.');
-				dia_evento = prompt("Qual o dia da semana do evento?");
-			}
-			let horario_evento = parseInt(prompt("Qual o horário do evento?"));
-			while (horario_evento == "" || horario_evento == null) {
-				alert('Valor inválido,'+nome+'.');
-				horario_evento = prompt("Qual o horário do evento?");
-			}
 			while(true){
-				if (dia_evento == "Sábado" || "Sabado" || "sábado" || "sabado" || "Domingo" || "domingo"){
-
+				let dia_evento = prompt("Qual o dia da semana do evento?");
+				while (dia_evento == "" || dia_evento == null) {
+					alert('Valor inválido,'+nome+'.');
+					dia_evento = prompt("Qual o dia da semana do evento?");
 				}
-				
+				let horario_evento = parseInt(prompt("Qual o horário do evento?"));
+				while (horario_evento == "" || horario_evento == null) {
+					alert('Valor inválido,'+nome+'.');
+					horario_evento = prompt("Qual o horário do evento?");
+				}
+				if (dia_evento == "Sábado" || "Sabado" || "sábado" || "sabado" || "Domingo" || "domingo"){
+					if (horario_evento >= 7 && horario_evento <= 15){
+						let nome_empresa = prompt("Qual o nome da empresa?");
+						while (nome_empresa == "" || nome_empresa == null) {
+							alert('Valor inválido,'+nome+'.');
+							nome_empresa = prompt("Qual o nome da empresa?");
+						}
+						alert("Auditório reservado para "+nome_empresa+". "+dia_evento+" às "+horario_evento+" horas.");
+						break;
+					} else {
+						alert("Auditório indisponivel para o evento.");
+						break
+					}
+				}
+				if (dia_evento == "Segunda" || "Terça" || "Quarta" || "Quinta" || "Sexta"){
+					if (horario_evento >= 7 && horario_evento <= 23){
+						let nome_empresa = prompt("Qual o nome da empresa?");
+						while (nome_empresa == "" || nome_empresa == null) {
+							alert('Valor inválido,'+nome+'.');
+							nome_empresa = prompt("Qual o nome da empresa?");
+						}
+						alert("Auditório reservado para "+nome_empresa+". "+dia_evento+" às "+horario_evento+" horas.");
+						break;
+					} else {
+						alert("Auditório indisponivel para o evento.");
+						break
+					}
+				}
 			}
 			menu();
 		}
